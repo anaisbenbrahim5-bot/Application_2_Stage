@@ -1,5 +1,5 @@
 export interface Log {
-    date:Date,
+    date:string,
     hour:string,
     num_carte:string,
     component:string,

@@ -14,29 +14,55 @@ export class Table implements OnInit {
   private fb=inject(FormBuilder);
   logservice:LogService=inject(LogService);
   logs:Log[]=[];
+  latestlogs:Log[]=[];
   filteredLogs:Log[]=[];
   SearchNum:string='';
-  private getDateTime(log: Log): number {
-    const [h, m, s] = log.hour.split(':').map(Number);
-    const d = new Date(log.date);
-    d.setHours(h, m, s || 0);
+  alert:boolean=false;
+   getDateTime(log:Log):number{
+    const [h,m,s]=log.hour.split(':').map(Number);
+    let d=new Date(log.date);
+    d.setHours(h,m,s);
     return d.getTime();
+  }
+  getLatestDate(logs:Log[]):number{
+    let d=this.getDateTime(logs[0]);
+    logs.forEach(log => {
+      if(this.getDateTime(log)>=d){
+        d=this.getDateTime(log);
+      }
+    });
+    return d;
   }
   
     ngOnInit(): void {
       this.logservice.getLogs().subscribe(data => {
-        this.logs = data.map(log => ({
-          ...log,
-          date: new Date(log.date),
-        }));
-        this.logs.sort((a, b) => this.getDateTime(b) - this.getDateTime(a));
-        this.filteredLogs = [...this.logs];
+        this.logs = data;
+        this.latestlogs = this.logs.filter(log=>{
+          return this.getDateTime(log)==this.getLatestDate(this.logs);
+        });
+        this.filteredLogs=[...this.latestlogs];
       });
   }
   OnSearch(){
+    if(!this.SearchNum){
+      this.filteredLogs=[...this.latestlogs];
+      this.alert=false;
+    }
+    else{
       this.filteredLogs=this.logs.filter(log=>{
-        return !this.SearchNum || log.num_carte.toLocaleLowerCase().includes(this.SearchNum.toLocaleLowerCase()) ;
+        return log.num_carte.toLocaleLowerCase().includes(this.SearchNum.toLocaleLowerCase()) ;
       });
+      if(this.filteredLogs.length==0){
+        if(!this.alert){
+        alert("carte non trouvée");
+        this.alert=true;
+        }
+        return;
+      }
+      this.alert=false;
       this.filteredLogs.sort((a,b)=>this.getDateTime(b) - this.getDateTime(a));
+      //console.log(this.filteredLogs);
+  }
   }
 }
+
