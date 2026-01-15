@@ -1,1 +1,52 @@
-<p>form works!</p>
+<fieldset class="border p-4 rounded">
+  <legend class="float-none w-auto px-3 fw-bold">Faulty component</legend>
+
+  <form class="row g-3" [formGroup]="ComponentForm">
+    <div class="col-md-3">
+      <label class="form-label">Date</label>
+      <input type="date" class="form-control" formControlName="date" />
+    </div>
+
+    <div class="col-md-3">
+      <label class="form-label">Hour</label>
+      <input type="text" class="form-control" formControlName="hour" readonly />
+    </div>
+
+    <div class="col-md-3">
+      <label class="form-label">Numero de carte</label>
+      <input type="text" class="form-control" formControlName="num_carte" readonly />
+    </div>
+
+    <div class="col-md-3">
+      <label class="form-label">Component</label>
+      <input type="text" class="form-control" formControlName="component" readonly />
+    </div>
+
+    <div class="col-md-3">
+      <label class="form-label">Expected</label>
+      <input type="text" class="form-control" formControlName="expected" readonly />
+    </div>
+
+    <div class="col-md-3">
+      <label class="form-label">Actual</label>
+      <input type="text" class="form-control" formControlName="actual" readonly />
+    </div>
+
+    <div class="col-md-3">
+      <label class="form-label">Low</label>
+      <input type="text" class="form-control" formControlName="low" readonly />
+    </div>
+
+    <div class="col-md-3">
+      <label class="form-label">High</label>
+      <input type="text" class="form-control" formControlName="high" readonly />
+    </div>
+    <div class="col-md-3">
+      <label class="form-label">Problem</label>
+      <select class="form-select" formControlName="problem">
+        <option value="DR">DR(Problem not Found)</option>
+        <option value="Fault">Pass to Unity</option>
+      </select>
+    </div>
+  </form>
+</fieldset>
