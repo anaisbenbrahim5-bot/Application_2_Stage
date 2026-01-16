@@ -5,7 +5,7 @@ import { Table } from './affichage/table/table';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet,Form,Table],
+  imports: [RouterOutlet,Table],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

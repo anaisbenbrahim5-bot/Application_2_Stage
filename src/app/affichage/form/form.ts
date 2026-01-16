@@ -1,6 +1,6 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { LogService } from '../../services/log-service';
+import { Component, inject, Input, OnInit } from '@angular/core';
+import { FormBuilder,  ReactiveFormsModule } from '@angular/forms';
+import { Log } from '../../models/log';
 
 @Component({
   selector: 'app-form',
@@ -9,7 +9,7 @@ import { LogService } from '../../services/log-service';
   styleUrl: './form.css',
 })
 export class Form  implements OnInit {
-  logsevice:LogService=inject(LogService);
+  @Input()log: Log |null=null;
   fb=inject(FormBuilder);
   ComponentForm=this.fb.nonNullable.group({
     date:[''],
@@ -23,9 +23,18 @@ export class Form  implements OnInit {
     problem:['']
   });
   ngOnInit(): void {
-    this.ComponentForm.patchValue({});
+    this.ComponentForm.patchValue({
+      date:this.log.date,
+      hour:this.log.hour,
+      num_carte:this.log.num_carte,
+      component:this.log.component,
+      expected:this.log.expected,
+      actual:this.log.actual,
+      low:this.log.low,
+      high:this.log.high
+    });
   }
   OnSubmit(){
-    
+
   }
 }

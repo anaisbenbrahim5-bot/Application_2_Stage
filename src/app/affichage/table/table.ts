@@ -3,10 +3,11 @@ import {Component, inject, OnInit,  } from '@angular/core';
 import { FormBuilder, FormsModule } from '@angular/forms';
 import { Log } from '../../models/log';
 import { LogService } from '../../services/log-service';
+import { Form } from '../form/form';
 
 @Component({
   selector: 'app-table',
-  imports: [FormsModule,DatePipe],
+  imports: [Form,FormsModule,DatePipe],
   templateUrl: './table.html',
   styleUrl: './table.css',
 })
@@ -16,6 +17,7 @@ export class Table implements OnInit {
   logs:Log[]=[];
   latestlogs:Log[]=[];
   filteredLogs:Log[]=[];
+  log:Log|null=null;
   SearchNum:string='';
   alert:boolean=false;
    getDateTime(log:Log):number{
@@ -64,5 +66,8 @@ export class Table implements OnInit {
       //console.log(this.filteredLogs);
   }
   }
+  OnSend(l:Log){
+    //console.log(log.component);
+    this.log=l;
+  }
 }
-
