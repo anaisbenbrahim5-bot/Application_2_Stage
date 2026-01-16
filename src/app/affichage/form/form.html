@@ -1,10 +1,10 @@
 <fieldset class="border p-4 rounded">
   <legend class="float-none w-auto px-3 fw-bold">Faulty component</legend>
 
-  <form class="row g-3" [formGroup]="ComponentForm">
+  <form class="row g-3" [formGroup]="ComponentForm" (ngSubmit)="OnSubmit()">
     <div class="col-md-3">
       <label class="form-label">Date</label>
-      <input type="date" class="form-control" formControlName="date" />
+      <input type="date" class="form-control" formControlName="date" readonly />
     </div>
 
     <div class="col-md-3">
@@ -47,6 +47,9 @@
         <option value="DR">DR(Problem not Found)</option>
         <option value="Fault">Pass to Unity</option>
       </select>
+    </div>
+    <div class="col-md-3 d-flex align-items-end">
+      <input type="submit" class="btn btn-success w-100" />
     </div>
   </form>
 </fieldset>

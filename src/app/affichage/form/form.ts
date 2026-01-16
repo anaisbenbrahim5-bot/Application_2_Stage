@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { LogService } from '../../services/log-service';
 
@@ -8,7 +8,7 @@ import { LogService } from '../../services/log-service';
   templateUrl: './form.html',
   styleUrl: './form.css',
 })
-export class Form {
+export class Form  implements OnInit {
   logsevice:LogService=inject(LogService);
   fb=inject(FormBuilder);
   ComponentForm=this.fb.nonNullable.group({
@@ -22,5 +22,10 @@ export class Form {
     high:[''],
     problem:['']
   });
-  
+  ngOnInit(): void {
+    this.ComponentForm.patchValue({});
+  }
+  OnSubmit(){
+    
+  }
 }
