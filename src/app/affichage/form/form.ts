@@ -1,15 +1,13 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, inject} from '@angular/core';
 import { FormBuilder,  ReactiveFormsModule } from '@angular/forms';
 import { Log } from '../../models/log';
-
 @Component({
   selector: 'app-form',
   imports: [ReactiveFormsModule],
   templateUrl: './form.html',
   styleUrl: './form.css',
 })
-export class Form  implements OnInit {
-  @Input()log: Log |null=null;
+export class Form   {
   fb=inject(FormBuilder);
   ComponentForm=this.fb.nonNullable.group({
     date:[''],
@@ -22,19 +20,20 @@ export class Form  implements OnInit {
     high:[''],
     problem:['']
   });
-  ngOnInit(): void {
+  updateForm(log:Log){
     this.ComponentForm.patchValue({
-      date:this.log.date,
-      hour:this.log.hour,
-      num_carte:this.log.num_carte,
-      component:this.log.component,
-      expected:this.log.expected,
-      actual:this.log.actual,
-      low:this.log.low,
-      high:this.log.high
+      date:log?.date,
+      hour:log?.hour,
+      num_carte:log?.num_carte,
+      component:log?.component,
+      expected:log?.expected,
+      actual:log?.actual,
+      low:log?.low,
+      high:log?.high
     });
   }
   OnSubmit(){
-
+    //console.log(this.ComponentForm);
+    
   }
 }

@@ -66,8 +66,8 @@ export class Table implements OnInit {
       //console.log(this.filteredLogs);
   }
   }
-  OnSend(l:Log){
-    //console.log(log.component);
-    this.log=l;
+  OnSend(l:Log ,logForm:any){
+    //console.log(l.component);
+    logForm.updateForm(l);
   }
 }
