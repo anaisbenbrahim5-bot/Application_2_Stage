@@ -29,7 +29,7 @@
           </thead>
           <tbody>
             @for(log of filteredLogs; track $index){
-            <tr class="text-center" (click)="OnSend(log, logForm)">
+            <tr class="text-center" (click)="OnSend(log, ComponentForm)">
               <td>{{ log.date | date : 'y-M-d' }}</td>
               <td>{{ log.hour }}</td>
               <td>{{ log.num_carte }}</td>
@@ -46,4 +46,4 @@
     </div>
   </body>
 </html>
-<app-form #logForm></app-form>
+<app-form #ComponentForm></app-form>
