@@ -8,7 +8,7 @@ const URL="http://localhost/stage/getlog.php";
 })
 export class LogService {
   private http:HttpClient=inject(HttpClient);
-  public getLogs():Observable<Log[]>{
-    return this.http.get<Log[]>(URL);
+  public searchLogs(num: string): Observable<Log[]> {
+    return this.http.get<Log[]>(`${URL}?num_carte=${num}`);
   }
 }

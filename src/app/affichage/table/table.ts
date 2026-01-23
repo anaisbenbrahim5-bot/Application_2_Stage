@@ -14,8 +14,6 @@ import { Form } from '../form/form';
 export class Table implements OnInit {
   private fb=inject(FormBuilder);
   logservice:LogService=inject(LogService);
-  logs:Log[]=[];
-  latestlogs:Log[]=[];
   filteredLogs:Log[]=[];
   log:Log|null=null;
   SearchNum:string='';
@@ -37,34 +35,20 @@ export class Table implements OnInit {
   }
   
     ngOnInit(): void {
-      this.logservice.getLogs().subscribe(data => {
-        this.logs = data;
-        this.latestlogs = this.logs.filter(log=>{
-          return this.getDateTime(log)==this.getLatestDate(this.logs);
-        });
-        this.filteredLogs=[...this.latestlogs];
-      });
+      this.logservice.searchLogs('').subscribe(data => {
+        this.filteredLogs = data;
+      })
   }
   OnSearch(){
-    if(!this.SearchNum){
-      this.filteredLogs=[...this.latestlogs];
-      this.alert=false;
-    }
-    else{
-      this.filteredLogs=this.logs.filter(log=>{
-        return log.num_carte.toLocaleLowerCase().includes(this.SearchNum.toLocaleLowerCase()) ;
-      });
-      if(this.filteredLogs.length==0){
-        if(!this.alert){
-        alert("carte non trouvée");
-        this.alert=true;
-        }
-        return;
+    this.logservice.searchLogs(this.SearchNum).subscribe(data => {
+      if (data.length === 0 && !this.alert) {
+        alert('carte non trouvée');
+        this.alert = true;
+      } else {
+        this.alert = false;
       }
-      this.alert=false;
-      this.filteredLogs.sort((a,b)=>this.getDateTime(b) - this.getDateTime(a));
-      //console.log(this.filteredLogs);
-  }
+      this.filteredLogs = data;
+    });
   }
   OnSend(l:Log ,ComponentForm:any){
     //console.log(l.component);
