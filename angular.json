@@ -42,7 +42,7 @@
                   "maximumError": "8kB"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "none"
             },
             "development": {
               "optimization": false,
@@ -70,6 +70,8 @@
         "test": {
           "builder": "@angular/build:karma",
           "options": {
+            "outputPath":"dist/Application_2_stage/browser",
+            "baseHref": "./" ,
             "polyfills": [
               "zone.js",
               "zone.js/testing"
@@ -83,7 +85,11 @@
             ],
             "styles": [
               "src/styles.css"
-            ]
+            ],
+            "index": {
+              "input": "src/index.html",
+              "output": "index.html"
+            }
           }
         }
       }

@@ -18,22 +18,6 @@ export class Table implements OnInit {
   log:Log|null=null;
   SearchNum:string='';
   alert:boolean=false;
-   getDateTime(log:Log):number{
-    const [h,m,s]=log.hour.split(':').map(Number);
-    let d=new Date(log.date);
-    d.setHours(h,m,s);
-    return d.getTime();
-  }
-  getLatestDate(logs:Log[]):number{
-    let d=this.getDateTime(logs[0]);
-    logs.forEach(log => {
-      if(this.getDateTime(log)>=d){
-        d=this.getDateTime(log);
-      }
-    });
-    return d;
-  }
-  
     ngOnInit(): void {
       this.logservice.searchLogs('').subscribe(data => {
         this.filteredLogs = data;

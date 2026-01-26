@@ -1,12 +1,17 @@
 {
   "name": "application-2-stage",
+  "main": "main.js",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "electron": "electron .",
+    "electron-build": "ng build -c production && electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
   },
   "prettier": {
     "printWidth": 100,
@@ -37,6 +42,8 @@
     "@angular/cli": "^20.3.2",
     "@angular/compiler-cli": "^20.3.0",
     "@types/jasmine": "~5.1.0",
+    "electron": "^40.0.0",
+    "electron-builder": "^26.4.0",
     "jasmine-core": "~5.9.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
@@ -44,5 +51,20 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "typescript": "~5.9.2"
-  }
+  },
+  "build": {
+    "appId": "com.AnissaBenBrahim.app",
+    "productName": "DiagLog Viewer",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "main.js",
+      "package.json"
+    ],
+    "win": {
+      "target": "nsis"
+    }
+  }  
 }
